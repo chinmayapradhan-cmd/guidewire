@@ -81,8 +81,7 @@ function seedData() {
 
     // Read seed file
     try {
-        const seedPath = path.join(__dirname, 'seed', 'seed-data.json');
-        const seedData = JSON.parse(fs.readFileSync(seedPath, 'utf8'));
+        const seedData = require('./seed/seed-data.json');
 
         db.serialize(() => {
             const insertProcess = db.prepare(`INSERT INTO batch_processes (name, description, last_run_at, last_run_status, next_scheduled_run, schedule, cron_expr) VALUES (?, ?, ?, ?, ?, ?, ?)`);
