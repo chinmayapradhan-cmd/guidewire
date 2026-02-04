@@ -3,7 +3,24 @@ const fs = require('fs');
 const path = require('path');
 const bcrypt = require('bcryptjs');
 
-const dbPath = path.join(__dirname, 'database.sqlite');
+const os = require('os');
+
+// Dynamic Database Path Logic
+const getDatabasePath = () => {
+    if (process.env.DB_FILE_PATH) return process.env.DB_FILE_PATH;
+
+    const shouldUseTmp = process.env.USE_TMP_DB === 'true' ||
+        process.env.VERCEL ||
+        process.env.NETLIFY; // Add other flags as needed
+
+    if (shouldUseTmp) {
+        return path.join(os.tmpdir(), 'database.sqlite');
+    }
+
+    return path.join(__dirname, 'database.sqlite');
+};
+
+const dbPath = getDatabasePath();
 const db = new sqlite3.Database(dbPath);
 
 function initDatabase() {
@@ -122,5 +139,6 @@ function seedData() {
 
 module.exports = {
     db,
-    initDatabase
+    initDatabase,
+    dbPath // Exported for utilities like reset-db.js
 };

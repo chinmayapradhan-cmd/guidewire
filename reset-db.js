@@ -1,40 +1,22 @@
-const fs = require('fs');
-const path = require('path');
-
-const dbPath = path.join(__dirname, 'database.sqlite');
+const { db, initDatabase } = require('./database');
+const { dbPath } = require('./database');
 
 console.log('--- Database Reset Utility ---');
+console.log(`Target Database: ${dbPath}`);
 
-// 1. Delete existing database file
-if (fs.existsSync(dbPath)) {
-    try {
-        fs.unlinkSync(dbPath);
-        console.log('Existing database deleted.');
-    } catch (e) {
-        console.error('ERROR: Could not delete database file.');
-        console.error('Make sure the server is STOPPED before running this script.');
-        console.error(e.message);
-        process.exit(1);
-    }
-} else {
-    console.log('No existing database found.');
-}
+db.serialize(() => {
+    console.log('Dropping existing tables...');
+    db.run("DROP TABLE IF EXISTS batch_runs");
+    db.run("DROP TABLE IF EXISTS batch_processes");
+    db.run("DROP TABLE IF EXISTS users");
 
-// 2. Import database.js to trigger initialization
-// Note: database.js initializes the DB connection at the top level, which creates the file.
-// Then we call initDatabase() to create tables and seed.
-try {
-    const { initDatabase } = require('./database');
-
-    console.log('Initializing new database...');
+    console.log('Tables dropped. Re-initializing...');
+    // initDatabase will create tables and seed data
     initDatabase();
+});
 
-    // Give it a moment to complete async operations (SQLite serialize ensures order, but node process might exit)
-    setTimeout(() => {
-        console.log('Database reset and seeded successfully.');
-        console.log('You can now start the server with: npm start');
-    }, 1000);
-
-} catch (e) {
-    console.error('Failed to initialize database:', e);
-}
+// Monitoring completion
+// Since sqlite3 operations are async but serialized, we can wait a bit or just rely on console logs from initDatabase
+setTimeout(() => {
+    console.log('Database reset process initiated.');
+}, 1000);
