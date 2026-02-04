@@ -1,0 +1,456 @@
+/* Global */
+body,
+html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    height: 100%;
+    background-color: #f4f6f9;
+    color: #333;
+    font-size: 11px;
+    /* Enterprise apps often use smaller fonts */
+}
+
+* {
+    box-sizing: border-box;
+}
+
+/* Dashboard Layout */
+.dashboard-container {
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 260px;
+    background-color: #0d1e3a;
+    /* Darker Blue */
+    color: #c2c7d0;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    font-size: 12px;
+}
+
+.sidebar-header {
+    background-color: #008CBA;
+    /* Teal/Cyan header from screenshot */
+    color: white;
+    padding: 10px 15px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+}
+
+.sidebar-header::before {
+    content: '☰';
+    /* Hamburger icon imitation */
+    margin-right: 10px;
+    font-size: 14px;
+}
+
+.sidebar-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    flex-grow: 1;
+    overflow-y: auto;
+}
+
+.sidebar-menu li {
+    border-bottom: 1px solid #1a2c4e;
+}
+
+.sidebar-menu a {
+    display: block;
+    padding: 8px 15px;
+    color: #bfdcf3;
+    text-decoration: none;
+    transition: background 0.1s;
+    border-left: 3px solid transparent;
+}
+
+.sidebar-menu a:hover {
+    background-color: #1a3e6e;
+    color: white;
+}
+
+.sidebar-menu a.active {
+    background-color: #234575;
+    color: white;
+    border-left-color: #58a5da;
+    font-weight: bold;
+}
+
+/* Main Content */
+.main-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background: white;
+}
+
+/* Logo Bar / Top Header NOT in screenshot but good for auth info */
+.top-header-strip {
+    background: #0d1e3a;
+    /* Match sidebar */
+    color: white;
+    padding: 0 10px;
+    height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    font-size: 11px;
+}
+
+.top-header-strip a {
+    color: white;
+    text-decoration: none;
+    margin-left: 15px;
+}
+
+/* Content Header */
+.content-header {
+    padding: 10px 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+.page-title {
+    font-size: 18px;
+    color: #d16e6e;
+    /* Reddish title from screenshot */
+    margin: 0 0 10px 0;
+    font-weight: normal;
+}
+
+/* Toolbar Config */
+.toolbar-tabs {
+    display: flex;
+    margin-bottom: 5px;
+}
+
+.toolbar-tab {
+    padding: 5px 15px;
+    background: linear-gradient(to bottom, #fff, #f4f4f4);
+    border: 1px solid #ccc;
+    border-bottom: none;
+    border-radius: 4px 4px 0 0;
+    color: #444;
+    font-weight: bold;
+    cursor: default;
+    background: white;
+    border-bottom: 1px solid white;
+    /* Blend with toolbar */
+    margin-bottom: -1px;
+    z-index: 2;
+}
+
+.toolbar-actions {
+    background: #fdfdfd;
+    border: 1px solid #ccc;
+    padding: 8px;
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+
+/* Buttons */
+.btn {
+    padding: 4px 12px;
+    border: 1px solid #005a9e;
+    border-radius: 2px;
+    font-size: 11px;
+    cursor: pointer;
+    font-family: inherit;
+    text-align: center;
+}
+
+.btn-primary {
+    background-color: #0078d4;
+    color: white;
+    border-color: #0078d4;
+}
+
+.btn-primary:hover {
+    background-color: #005a9e;
+}
+
+.btn-secondary {
+    background: linear-gradient(to bottom, #ffffff, #eeeeee);
+    color: #333;
+    border: 1px solid #ccc;
+}
+
+.btn-secondary:hover {
+    background: #e6e6e6;
+}
+
+/* Auth Layout */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #e8eef2;
+    /* Lighter gray-blue background */
+}
+
+.login-box {
+    background: white;
+    padding: 40px;
+    border-radius: 2px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    width: 400px;
+    height: 380px;
+    /* Fixed height to match aspect ratio */
+    display: flex;
+    flex-direction: column;
+}
+
+.login-box h2 {
+    margin-top: 10px;
+    margin-bottom: 30px;
+    text-align: center;
+    color: #005a9e;
+    /* Darker blue header */
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    font-size: 13px;
+    color: #333;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid #d1d1d1;
+    border-radius: 2px;
+    font-size: 13px;
+    outline: none;
+}
+
+.form-group input:focus {
+    border-color: #0078d4;
+}
+
+.btn-primary.login-btn {
+    width: 100%;
+    padding: 10px;
+    background-color: #0076ce;
+    /* Bright blue */
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    border-radius: 2px;
+    font-size: 13px;
+    margin-top: 10px;
+}
+
+.btn-primary.login-btn:hover {
+    background-color: #005a9e;
+}
+
+.error-msg {
+    color: #dc3545;
+    margin-bottom: 1rem;
+    text-align: center;
+    font-size: 12px;
+    display: none;
+}
+
+/* Table Action Buttons */
+.btn-group {
+    display: flex;
+    gap: 2px;
+}
+
+.btn-action {
+    padding: 2px 8px;
+    font-size: 10px;
+}
+
+.btn-run {
+    background: #0066cc;
+    color: white;
+    border: 1px solid #0055aa;
+}
+
+.btn-stop {
+    background: #f0f0f0;
+    color: #aaa;
+    border: 1px solid #ccc;
+    cursor: default;
+}
+
+.btn-history {
+    background: #0066cc;
+    color: white;
+    border: 1px solid #0055aa;
+}
+
+/* Search Box */
+.toolbar-spacer {
+    flex-grow: 1;
+}
+
+.search-box input {
+    padding: 4px;
+    border: 1px solid #ccc;
+    font-size: 11px;
+    width: 200px;
+}
+
+/* Main Table */
+.table-scroll-container {
+    flex-grow: 1;
+    overflow: auto;
+    background: white;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 11px;
+}
+
+thead th {
+    background: linear-gradient(to bottom, #f8f8f8, #e8e8e8);
+    position: sticky;
+    top: 0;
+    text-align: left;
+    padding: 6px 10px;
+    border-right: 1px solid #ccc;
+    border-bottom: 1px solid #999;
+    color: #333;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+tbody td {
+    padding: 5px 10px;
+    border-bottom: 1px solid #eee;
+    color: #333;
+    vertical-align: middle;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tbody tr:hover {
+    background-color: #eaf3ff;
+    cursor: pointer;
+}
+
+tbody tr.selected {
+    background-color: #cce8ff !important;
+}
+
+/* Bottom Panel */
+.bottom-panel {
+    height: 0;
+    display: flex;
+    flex-direction: column;
+    border-top: 4px solid #ccc;
+    /* Draggable handle look */
+    transition: height 0.2s;
+    background: white;
+}
+
+.bottom-panel.open {
+    height: 300px;
+}
+
+.panel-tabs {
+    display: flex;
+    background: #f4f4f4;
+    border-bottom: 1px solid #ccc;
+    padding-top: 5px;
+    padding-left: 10px;
+}
+
+.panel-tab-btn {
+    padding: 5px 15px;
+    border: 1px solid transparent;
+    border-bottom: none;
+    cursor: pointer;
+    background: transparent;
+    color: #0066cc;
+    font-weight: bold;
+    margin-bottom: -1px;
+    border-radius: 4px 4px 0 0;
+}
+
+.panel-tab-btn.active {
+    background: white;
+    border-color: #ccc;
+    border-bottom-color: white;
+    color: #333;
+}
+
+.panel-content {
+    flex-grow: 1;
+    overflow: auto;
+    padding: 0;
+}
+
+.panel-toolbar {
+    padding: 5px;
+    background: #f9f9f9;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    align-items: center;
+}
+
+/* Status Badges - Text Only in Screenshot, but distinct colors */
+.status-completed {
+    color: #28a745;
+    font-weight: normal;
+}
+
+.status-executing {
+    color: #d39e00;
+    font-weight: normal;
+}
+
+.status-failed {
+    color: #dc3545;
+    font-weight: bold;
+}
+
+.status-muted {
+    color: #999;
+}
+
+/* Scrollbars */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border: 2px solid #f1f1f1;
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}

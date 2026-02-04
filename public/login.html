@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Enterprise Console</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="login-container">
+        <div class="login-box">
+            <h2>Sign In</h2>
+            <div id="error-msg" class="error-msg">Invalid username or password</div>
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" required autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <button type="submit" class="btn-primary login-btn">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('login-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData.entries());
+
+            try {
+                const response = await fetch('/api/auth/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+
+                if (response.ok) {
+                    window.location.href = '/';
+                } else {
+                    const result = await response.json();
+                    const errorDiv = document.getElementById('error-msg');
+                    errorDiv.textContent = result.error || 'Login failed';
+                    errorDiv.style.display = 'block';
+                }
+            } catch (err) {
+                console.error(err);
+                document.getElementById('error-msg').style.display = 'block';
+                document.getElementById('error-msg').textContent = "Connection error";
+            }
+        });
+    </script>
+</body>
+
+</html>

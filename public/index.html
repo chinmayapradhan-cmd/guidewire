@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Batch Process Info</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                Actions
+            </div>
+            <ul class="sidebar-menu">
+                <li><a href="#" class="active">Batch Process Info</a></li>
+                <li><a href="#">Work Queue Info</a></li>
+                <li><a href="#">Set Log Level</a></li>
+                <li><a href="#">View Logs</a></li>
+                <li><a href="#">Intentional Logging</a></li>
+                <li><a href="#">Info Pages</a></li>
+                <li><a href="#">Management Beans</a></li>
+                <li><a href="#">Startable Services</a></li>
+                <li><a href="#">Cluster</a></li>
+                <li><a href="#">Upgrade and Versions</a></li>
+                <li><a href="#">Cache Info</a></li>
+                <li><a href="#">Guidewire Profiler</a></li>
+                <li><a href="#">Product Model Info</a></li>
+                <li><a href="#">Support Queries</a></li>
+                <li><a href="#">Migration Payload Tester</a></li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Strip -->
+            <div class="top-header-strip">
+                <span id="username-display">Loading...</span>
+                <a href="#" id="logout-btn">Logout</a>
+            </div>
+
+            <!-- Page Header -->
+            <div class="content-header">
+                <h2 class="page-title">Batch Process Info</h2>
+
+                <div class="toolbar-tabs">
+                    <div class="toolbar-tab">Processes</div>
+                </div>
+
+                <div class="toolbar-actions">
+                    <button id="refresh-btn" class="btn btn-primary">Refresh</button>
+                    <button class="btn btn-primary" disabled>Download</button>
+                    <button class="btn btn-primary" disabled>Suspend Scheduler</button>
+
+                    <select class="btn btn-secondary" style="height: 24px; margin-left: 5px;">
+                        <option>Default</option>
+                    </select>
+
+                    <div class="toolbar-spacer"></div>
+
+                    <div class="search-box">
+                        <input type="text" id="search-input" placeholder="Search...">
+                    </div>
+                    <div style="font-size: 16px; color: #999; cursor: pointer;">&#9638;</div>
+                    <!-- Grid icon placeholder -->
+                </div>
+            </div>
+
+            <!-- Process Table -->
+            <div class="table-scroll-container">
+                <table id="process-table">
+                    <thead>
+                        <tr>
+                            <th>Batch Process</th>
+                            <th>Description</th>
+                            <th>Action</th>
+                            <th>Last Run</th>
+                            <th>Last Run Status</th>
+                            <th>Next Scheduled Run</th>
+                            <th>Schedule</th>
+                            <th>Cron - S M H DOM M DOW</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Populated by JS -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Bottom Panel -->
+            <div id="bottom-panel" class="bottom-panel">
+                <div class="panel-tabs">
+                    <button class="panel-tab-btn" data-tab="chart-tab">Chart</button>
+                    <button class="panel-tab-btn active" data-tab="history-tab">History</button>
+                </div>
+
+                <div class="panel-content">
+                    <div id="chart-tab" class="panel-tab-pane" style="display:none; padding:20px;">
+                        Chart view placeholder
+                    </div>
+
+                    <div id="history-tab" class="panel-tab-pane">
+                        <div class="panel-toolbar">
+                            <select style="padding: 2px;">
+                                <option>All</option>
+                            </select>
+                            <div class="toolbar-spacer"></div>
+                            <!-- Mock Pagination -->
+                            <div style="display:flex; align-items:center; color:#666;">
+                                <button class="btn btn-secondary" style="padding:0 5px;" disabled>&lt;&lt;</button>
+                                <button class="btn btn-secondary" style="padding:0 5px;" disabled>&lt;</button>
+                                <span style="margin: 0 5px;">1 / 7</span>
+                                <button class="btn btn-secondary" style="padding:0 5px;">&gt;</button>
+                                <button class="btn btn-secondary" style="padding:0 5px;">&gt;&gt;</button>
+                            </div>
+                        </div>
+
+                        <table id="history-table">
+                            <thead>
+                                <tr>
+                                    <th>Start Requested</th>
+                                    <th>Started</th>
+                                    <th>Completed</th>
+                                    <th>Scheduled</th>
+                                    <th>Server</th>
+                                    <th>Description</th>
+                                    <th>Ops</th>
+                                    <th>Failed</th>
+                                    <th>Failure Reason</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
